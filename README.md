@@ -7,7 +7,7 @@ Online version of the classic game -- 24
 
 
 
-Key: (13-11+1)x12 = 24
+Key: (13-11)x1x12 = 24
 
 **Overview:**
 
@@ -54,4 +54,53 @@ An Example of Combination's Average Time:
 [My First Draft Schema](https://github.com/suhan1996/24PointChallenge/blob/master/db.js)
 
 
+**Wireframes**
+
+/game
+
+![Alt text](/documentation/demo_game.png?raw=true )
+
+/ranking
+
+![Alt text](/documentation/ranking.png?raw=true )
+
+/elite
+
+![Alt text](/documentation/elite.png?raw=true )
+
+/calculator
+
+![Alt text](/documentation/calculator.png?raw=true )
+
+**Site Map**
+
+![Alt text](/documentation/page.png?raw=true )
+
+**Use Cases**
+
+Function 1: Game
+
+User A,B: A played the game, within 90s he solved all the card sets, and his ranking is No.1, A showed off his result with B, B was infuriated, and decided to play, B finished all the sets in 80s, and destroyed his friend at the Final Ranking.
+
+Function 2: Elite Combo
+
+A,B Continued: A was not convinced by B, and thought maybe B got some easy sets, so A invited B to come to his place and have a 24 duel. Of course, the card sets should be harder, so they get to the Elite Combo and see if any of them could solve the hardest one, and the first(most difficult) set was so hard that they beat their brains out, the set is "3 3 8 8".
+
+Function 3: 24 Calculator
+
+Still A,B: Both A and B fail at figuring out how to make 3 3 8 8 to 24, and they doubt if there's acually an answer for that, so they resort to 24 calculator...wow sooo smooth, they were amazed by the answer: "8/(3-(8/3))
+"
+
+**Research Topics**
+
+(4 points) Perform client side form validation using a JavaScript library
+
+(5 points) vue.js // Vue is said to be good for transition animations, I'd use that for the game part.
+
+
+***Main Project:***
+
+[App.js](https://github.com/suhan1996/24PointChallenge/blob/master/app.js)
+
+***Annotations / References Used***
 
