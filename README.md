@@ -76,7 +76,7 @@ An Example of Combination's Average Time:
 
 ![Alt text](/documentation/page.png?raw=true )
 
-**Use Cases**
+**User Cases**
 
 Function 1: Game
 

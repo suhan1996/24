@@ -21,9 +21,11 @@ const Combinations = new mongoose.Schema({
 });
 
 //URLSlugs('<user>');
-Link.plugin(URLSlugs('title'));
+Results.plugin(URLSlugs('title'));
 mongoose.model('Comment', Comment);
-mongoose.model('Link', Link);
+mongoose.model('Results', Results);
+mongoose.model('Combinations', Combinations);
+
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/hw05');
+mongoose.connect('mongodb://localhost/final');

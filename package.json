@@ -1,0 +1,28 @@
+{
+  "name": "24",
+  "version": "1.0.0",
+  "description": "24 game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyu-csci-ua-0480-008-spring-2017/hs2657-final-project.git"
+  },
+  "keywords": [
+    "24",
+    "game"
+  ],
+  "author": "Han Su",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nyu-csci-ua-0480-008-spring-2017/hs2657-final-project/issues"
+  },
+  "homepage": "https://github.com/nyu-csci-ua-0480-008-spring-2017/hs2657-final-project#readme",
+  "dependencies": {
+    "hbs": "^4.0.1",
+    "mongoose": "^4.9.2",
+    "mongoose-url-slugs": "^0.2.1"
+  }
+}
