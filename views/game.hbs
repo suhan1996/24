@@ -1,18 +1,19 @@
 
+<canvas id="canvasID"   width= 400  height = 400  style="border:solid 1px #444444;" > Your browser does not support HTML5, get a newer one. </canvas>
+
+
+
 {{#each combo}}
 
-    <!--<p><a href={{this.url}}> {{this.title}}</a><a href="http://localhost:3000/{{this.slug}}"> [COMMENTS]  </a> <a id="count">Hottness: {{this.vote}}</a>-->
-    <!--</p>-->
     <p>{{this}}</p>
 
 
 
     <div>
         <form action="/game/post" method="POST" >
-            <label for="url">URL</label>
-            <input type="text" id="url" name="url" placeholder=" Url ">
-            <label for="title">TITLE</label>
-            <input type="text" id="title" name="title" placeholder=" Title">
+            <label for="url">I got it!</label>
+            <input type="text" id="url" name="answer" placeholder=" Answer ">
+
 
             <!--<label for="fname">foooooodz</label>-->
 
