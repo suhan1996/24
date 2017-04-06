@@ -103,7 +103,7 @@ function funCount([a,b,c,d])
     n[1] = b;
     n[2] = c;
     n[3] = d;
-    console.log(n)
+    //console.log(n)
     if ( n[0] > 0 && n[1] > 0 && n[2] > 0 && n[3] > 0 && n[0] < 14 && n[1] < 14 && n[2] < 14 && n[3] < 14 )
     {
         //log("<font size=5><b>"+n[0]+", "+n[1]+", "+n[2]+", "+n[3]+"的24点答案：</b></font><br>");
@@ -118,6 +118,7 @@ function funCount([a,b,c,d])
     {
         //alert("输入错误！");
     }
+    return solution[0];
 }
 //主程序
 function funMain()
@@ -189,11 +190,11 @@ function funMain()
     }
 }
 
-//funCount([5,5,5,5])
+
 
 module.exports = {
     funCount:funCount,
-    solution:solution
 }
 
-//console.log(solution.length);
+//console.log(funCount([2,2,3,8]));
+

@@ -15,16 +15,16 @@ const Result = new mongoose.Schema({
     round_time : Number,
 });
 
-const Combinations = new mongoose.Schema({
-    combination: [],
-    average_time: Number
+const Combination = new mongoose.Schema({
+    combination: String,
+    solution: String
 });
 
 //URLSlugs('<user>');
-Result.plugin(URLSlugs('title'));
+Combination.plugin(URLSlugs('combination'));
 mongoose.model('Comment', Comment);
 mongoose.model('Result', Result);
-mongoose.model('Combinations', Combinations);
+mongoose.model('Combination', Combination);
 
 mongoose.Promise = global.Promise;
 
