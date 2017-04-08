@@ -17,7 +17,8 @@ const Result = new mongoose.Schema({
 
 const Combination = new mongoose.Schema({
     combination: String,
-    solution: String
+    solution: String,
+    times: Number,
 });
 
 //URLSlugs('<user>');

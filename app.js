@@ -105,13 +105,11 @@ app.get('/:var1',function(req, res){
     //console.log(req.params.var1);
     let combo = req.session.combo;
     let solution = req.session.solution;
-    //console.log("last_",last_comment,last_name)
-        //console.log(err, the_post);
-    res.render('calculator', {combo: combo, solution:solution});
-    //Comment.find({},(err, all_comment) => {
-    //    console.log(all_comment);
-    //    res.render('comment', {all_comment:all_comment})//not sure if its right or not
-    //})
+    Combination.findOne({combination: slg}, function(err, result){
+        console.log("the result combo",result)
+
+        res.render('calculator', {combo: combo, solution:solution, result:result});
+    });
 });
 app.post('/calculator/post', function(req, res) {
     //console.log("test1");
@@ -120,6 +118,15 @@ app.post('/calculator/post', function(req, res) {
     let str_asking = strSorted(req.body.asking);
     Combination.findOne({combination: str_asking}, function(err, result) {if(result){
         // already exist
+        if(result.times == undefined){
+            result.times = 1;
+        }
+        else {
+            result.times += 1;
+        }
+        result.save(function(saveErr, savePizza) {
+            //console.log(savePizza);
+        });
         console.log(" already exist, redirect to",'/'+result.slug);
         //res.redirect('/'+req.body.hidden);
         res.redirect('/'+result.slug);
