@@ -1,0 +1,90 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image:url("../../images/green.png");
+  margin: auto;
+  width: 50%;
+  /*border: 3px solid gainsboro;*/
+}
+.start{
+  font-size: large;
+  margin-top: 30%;
+  color: wheat;
+  background-color: rgba(0,0,0,0.5);
+}
+.center {
+  margin: auto;
+  width: 90%;
+  /*border: 3px solid gainsboro;*/
+  padding-top: 5vm;
+  padding-bottom: 5vm ;
+  align-items: center;
+  align-content: center;
+}
+
+form{
+  background-color: #bbbbbb;
+  padding: 50px;
+}
+.input{
+  border: none;
+  padding: 1.5vmin 4vmin;
+  color: wheat;
+  font-size: large;
+  background-color: rgba(255,255,255,0.5);
+}
+.playBtn {
+  border: none;
+  padding: 1.5vmin 4vmin;
+  color: wheat;
+  font-size: large;
+  background-color: rgba(255,255,255,0.5);
+
+}
+
+
+.button {
+  margin: auto;
+  border: none;
+  align-items: center;
+  align-content: center;
+  color:wheat;
+  border-radius: 2px;
+  margin-left: 25%;
+  padding: 10px 24px;
+  font-size: 16px;
+  background-color: rgba(0,0,0,0.5);
+  display: inline-block;
+
+}
+.hidden{
+  display: none;
+  height: 0px;
+  margin-right: 2%;
+  margin-left: 2%;
+  border-top: 14vmax solid rgba(0,0,0,0.5);
+}
+.score{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  border: 5px;
+  color:wheat;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#svg{
+  border: 3px solid gainsboro;
+  width: 50%;
+  height: 50%;
+}
+#cpu_div object{ width:25%;display: inline-block}
+#player_div object{ width:25%;display: inline-block }
+
+a {
+  color: #00B7FF;
+}
+
+.game{
+  display: block;
+}
