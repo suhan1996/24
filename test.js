@@ -13,6 +13,9 @@ function eval_r(n){
     exp_list.push(n);
 }
 function collect(k,a,b,c,d,m1,m2,m3){
+    if(ct == true){
+        return 1;
+    }
     "use strict";
     var exp1 = "a m1 b m2 c m3 d;";
     var exp2 = "(a m1 b) m2 c m3 d;";
@@ -98,6 +101,7 @@ var n = new Array();//四个数字
 //接收四个输入框的数字，调用主程序
 function funCount([a,b,c,d])
 {
+    ct = false;
 
     n[0] = a;
     n[1] = b;
@@ -118,11 +122,15 @@ function funCount([a,b,c,d])
     {
         //alert("输入错误！");
     }
-    return solution[0];
+    let result = solution[0];
+    solution.pop()
+    return result;
+
 }
 //主程序
 function funMain()
 {
+    ct = false;
     var m = new Array();
 
 //四种运算符
@@ -190,11 +198,67 @@ function funMain()
     }
 }
 
+function game(){
+    "use strict";
+    const card = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    let a = card[Math.floor(Math.random() * card.length)],b = card[Math.floor(Math.random() * card.length)],c = card[Math.floor(Math.random() * card.length)],d = card[Math.floor(Math.random() * card.length)];
+    let combo = [a,b,c,d];
+    return combo;
 
+}
+
+function strSorted(st){
+    "use strict";
+    let comboList = [],st_result="";
+    comboList = st.split(" ");
+    //for(let i = 0;i<st.length;i++){
+    //    comboList.push(st[i])
+    //}
+    comboList.sort().reverse().forEach(x =>{st_result+=x+"_"});
+    return st_result;
+
+}
+
+function ifArraysEqual(a,b){
+    "use strict";
+    let result = false;
+    if(a.length==b.length){
+        result = true;
+        a.forEach(x=>{
+            if(b.indexOf(x)==-1){
+                result = false;
+            }});
+    }
+    return result;
+}
+function CalculateStr(st){
+    console.log('st',st,Number(st[0]),funCount([Number(st[0]),Number(st[1]),Number(st[2]),Number(st[3])]));
+    let rlt = funCount([Number(st[0]),Number(st[1]),Number(st[2]),Number(st[3])]);
+    "use strict";
+    console.log("result is ",rlt)
+    return rlt
+}
 
 module.exports = {
+    ifArraysEqual: ifArraysEqual,
     funCount:funCount,
+    strSorted:strSorted,
+    game:game,
+    CalculateStr:CalculateStr
 }
 
 //console.log(funCount([2,2,3,8]));
+
+//let round_list = [];
+//for(let i=0;i<10;i++){
+//    let rst_temp = game();
+//    let slt = funCount(rst_temp)
+//    if (slt.length>0) {
+//        round_list.push(rst_temp);
+//        //console.log(test.solution);
+//    }
+//}
+
+console.log(CalculateStr([1,2,3,4]),"test this");
+console.log(strSorted("11 10 3 4"));
 

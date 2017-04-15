@@ -73,10 +73,15 @@ form{
   background-color: rgba(0,0,0,0.5);
 }
 
-#svg{
+#svg {
   border: 3px solid gainsboro;
   width: 50%;
   height: 50%;
+}
+.card{
+  height: 25%;
+  width: 25%;
+  align-content: flex-start;
 }
 #cpu_div object{ width:25%;display: inline-block}
 #player_div object{ width:25%;display: inline-block }

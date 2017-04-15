@@ -7,6 +7,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
+const _test = require("./test.js");
+app.use(express.static('./public/2_of_clubs.svg'));
+
 // enable sessions
 
 const session = require('express-session');
@@ -30,38 +33,7 @@ const mongoose = require('mongoose');
 const Result = mongoose.model('Result');
 const Combination = mongoose.model('Combination');
 
-function game(){
-    "use strict";
-    const card = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-    let a = card[Math.floor(Math.random() * card.length)],b = card[Math.floor(Math.random() * card.length)],c = card[Math.floor(Math.random() * card.length)],d = card[Math.floor(Math.random() * card.length)];
-    let combo = [a,b,c,d];
-    return combo;
 
-}
-
-function strSorted(st){
-    "use strict";
-    let comboList = [],st_result=""
-    for(let i = 0;i<st.length;i++){
-        comboList.push(st[i])
-    }
-    comboList.sort().forEach(x =>{st_result+=x});
-    return st_result;
-
-}
-
-function ifArraysEqual(a,b){
-    "use strict";
-    let result = false;
-    if(a.length==b.length){
-        result = true;
-        a.forEach(x=>{
-            if(b.indexOf(x)==-1){
-                result = false;
-            }});
-    }
-    return result;
-}
 
 
 
@@ -89,7 +61,7 @@ app.get('/calculator/result', (req, res) => {
     "use strict";
     res.render('calculator',{'result':result});
 
-    let str_asking = strSorted(req.body.asking);
+    let str_asking = _test.strSorted(req.body.asking);
     Combination.findOne({combination: str_asking}, function(err, result) {if(result){
         // already exist
 
@@ -115,7 +87,8 @@ app.post('/calculator/post', function(req, res) {
     //console.log("test1");
     //myName = req.body.myName;
     console.log("req.body.asking",req.body.asking);
-    let str_asking = strSorted(req.body.asking);
+    let userinput = req.body.asking;
+    let str_asking = _test.strSorted(req.body.asking);
     Combination.findOne({combination: str_asking}, function(err, result) {if(result){
         // already exist
         if(result.times == undefined){
@@ -133,13 +106,14 @@ app.post('/calculator/post', function(req, res) {
 
     }else{
         // new combo
-        let temp_result =  CalculateStr(str_asking);
-        console.log("new adding",str_asking,temp_result);
+        let list_asking = req.body.asking.split(" ");
+        let temp_result =  _test.CalculateStr(list_asking);
+        console.log("new adding",req.body.asking.split(" "),temp_result);
         const combi = new Combination({
             combination: str_asking,
             solution: temp_result
         });
-        req.session.combo = str_asking;
+        req.session.combo = req.body.asking;
         req.session.solution = temp_result;
         combi.save((err) => {
             if(err) {
@@ -159,8 +133,8 @@ app.post('/calculator/post', function(req, res) {
 app.get('/test', (req, res) => {
     let combo = [];
     for (let i=0; i<10; i++){
-        let rst_temp = game();
-        let slt = funCount(rst_temp)
+        let rst_temp = _test.game();
+        let slt = _test.funCount(rst_temp)
         if (slt.length>0) {
             combo.push(rst_temp);
             //console.log(test.solution);
@@ -242,31 +216,26 @@ function genExpress(exp,a,b,c,d,m1,m2,m3)
 var answer = new Array();//正确答案的表达式
 var counter = 0;//答案的个数
 //测试表达式是否正确
-function test(expn,a,b,c,d,m1,m2,m3)
-{
+function test(expn,a,b,c,d,m1,m2,m3) {
     var exp;
     var ret;
-    exp = genExpress(expn,a,b,c,d,m1,m2,m3);//生成计算表达式
-    eval_r("ret = "+exp);
-    if ( Math.abs(ret - 24) < 0.1 )
-    {
-        exp = exp.replace(";","");
-        exp = replaceAll(exp,"*","×");
-        exp = replaceAll(exp, "/","÷");
+    exp = genExpress(expn, a, b, c, d, m1, m2, m3);//生成计算表达式
+    eval_r("ret = " + exp);
+    if (Math.abs(ret - 24) < 0.1) {
+        exp = exp.replace(";", "");
+        exp = replaceAll(exp, "*", "×");
+        exp = replaceAll(exp, "/", "÷");
         var have = false;
-        for ( var i=0; i<counter; i++)
-        {
-            if ( exp == answer[i] )
-            {
+        for (var i = 0; i < counter; i++) {
+            if (exp == answer[i]) {
                 have = true;
                 break;
             }
         }
-        if ( !have )
-        {
+        if (!have) {
             answer[counter] = exp;
             counter++;
-            log("<font color=red><b>"+counter+":&nbsp;&nbsp;"+exp+"</b></font>");
+            log("<font color=red><b>" + counter + ":&nbsp;&nbsp;" + exp + "</b></font>");
         }
     }
 }
@@ -385,13 +354,7 @@ function funMain()
     }
 }
 
-function CalculateStr(st){
-    console.log('st',st,Number(st[0]),funCount([Number(st[0]),Number(st[1]),Number(st[2]),Number(st[3])]));
-    let rlt = funCount([Number(st[0]),Number(st[1]),Number(st[2]),Number(st[3])]);
-    "use strict";
-    console.log("result is ",rlt)
-    return rlt
-}
+
 
 
 //test.funCount([5,5,5,5])
@@ -403,3 +366,4 @@ if(process.env.PORT == undefined){
 else{
     app.listen(process.env.PORT);
 }
+
