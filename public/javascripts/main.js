@@ -1,17 +1,25 @@
 /**
  * Created by Suhan on 10/04/2017.
  */
+let formula = [], counter_click = 0;
 
 function main(){
+    // 注册
+// 创建根实例
+
+
     "use strict";
     let InputNum = 0;
+    let selector = 1;
     let round = 0;
     let suit = ['clubs','diamonds','hearts','spades'];
     const start = document.querySelector('.playBtn');
     const form = document.querySelector('.start');
     start.addEventListener('click',function(evt) {
         evt.preventDefault();
+
         form.style.display = 'none';
+
         document.querySelector("#calculator").style.display = "none";
         InputNum = (document.querySelector('.choice').value);
         console.log(document.querySelector('.choice').value)
@@ -43,21 +51,68 @@ function main(){
         const cpu_div = document.createElement("div");
         const player_div = document.createElement("div");
         const cpuScore_div = document.createElement("div");
-        const hit = document.createElement("button");
-        const stand = document.createElement("button");
+        const add = document.createElement("button");
+        const minus = document.createElement("button");
+        const multiply = document.createElement("button");
+        const divide = document.createElement("button");
+
         cpu_div.id = "cpu_div";
         player_div.id = "player_div";
+
         cpu_div.classList.add("center");
         player_div.classList.add("center");
         // cpuScore_div.classList.add( "score", "center");
-        hit.classList.add("button");
-        stand.classList.add("button");
+        add.classList.add("button");
+        minus.classList.add("button");
+        multiply.classList.add("button");
+        divide.classList.add("button");
+        add.appendChild(elt("strong","+"));
+        minus.appendChild(elt("strong","-"));
+        multiply.appendChild(elt("strong","*"));
+        divide.appendChild(elt("strong","/"));
+        add.onclick = function(){
+            console.log("add");
+            formula.push("+");
+        }
+        minus.onclick = function(){
+            console.log("add");
+            formula.push("-");
+        }
+        multiply.onclick = function(){
+            console.log("add");
+            formula.push("*");
+        }
+        divide.onclick = function(){
+            console.log("add");
+            formula.push("/");
+        }
+        console.log(formula);
+
+
+
         game_field.appendChild(cpuScore_div);
         game_field.appendChild(cpu_div);
         game_field.appendChild(player_div);
-        game_field.appendChild(hit);
-        game_field.appendChild(stand);
+        game_field.appendChild(add);
+        game_field.appendChild(minus);
+        game_field.appendChild(multiply);
+        game_field.appendChild(divide);
 
+
+
+        //player_div.appendChild((elt("strong",)));
+
+
+        document.querySelectorAll(".card").forEach(function(x){
+            console.log(x,"what?");
+            x.onclick = function(){
+                console.log("aha")
+            }
+            x.addEventListener('click',function(evt) {
+                console.log("click");
+            });
+        })
+        let combo = round_list[round];
         for(let i=0;i<4;i++) {
             let card_num = round_list[round][i];
             if(card_num==11){
@@ -73,9 +128,10 @@ function main(){
                 card_num=('ace');
             }
                     // cpu_div.appendChild(add_svg("../public/images/SVG-cards-1.3/" + card_num + "_of_"+suit[i]+".svg"));
-            cpu_div.appendChild(add_png("http://keithmackay.com//images/cards/"+ card_num + "_of_"+suit[i]+".png"));
-
+            cpu_div.appendChild(add_png("http://keithmackay.com//images/cards/"+ card_num + "_of_"+suit[i]+".png",selector,player_div,combo));
         }
+
+
 
     });
 }
@@ -284,13 +340,10 @@ function game(){
 
 }
 
-function strSorted(st){
+function strSorted(list){
     "use strict";
-    let comboList = [],st_result=""
-    for(let i = 0;i<st.length;i++){
-        comboList.push(st[i])
-    }
-    comboList.sort().forEach(x =>{st_result+=x});
+    let st_result="";
+    list.sort().forEach(x =>{st_result+=x+"_"});
     return st_result;
 
 }
@@ -333,13 +386,37 @@ function add_svg(link) {
     node.type = "image/svg+xml";
     return node;
 }
-function add_png(link) {
-    var node = document.createElement('img');
+function add_png(link,selector,player_div,combo) {
+    var node = document.createElement('img'),result = 0;
     //node.id = "svg1";
     node.src = link;
     node.classList.add("card")
+    node.onclick = function(){
+        if(link[38]!=0){
+            selector = jack2eleven(link[37]);
+        }
+        else{
+            selector = 10;
+        }
+        console.log(selector);
+        formula.push(selector);
+      //  player_div.appendChild((elt("strong",selector)));
+        console.log(formula,"formula before join")
+
+       // console.log("evaluate formula",eval(formula.join("")));
+        result = eval(formula.join(""));
+        formula = [result];
+        player_div.textContent = result;
+        counter_click++;
+        if(result==24&&counter_click==4){
+            console.log("great!you solved",combo);
+            post('/game/round',{roundCombo:strSorted(combo)})
+        }
+        console.log(formula,"formula after join")
+    }
     return node;
 }
+
 function add_svg_hidden(link) {
     var node = document.createElement('object');
     node.classList.add("hidden");
@@ -411,7 +488,6 @@ function elt(type) {
     var node = document.createElement(type);
     for (var i = 1; i < arguments.length; i++) {
         var child = arguments[i];
-        if (typeof child == "string")
             child = document.createTextNode(child);
         node.appendChild(child);
     }
@@ -461,6 +537,49 @@ function game(){
     let combo = [a,b,c,d];
     return combo;
 
+}
+function jack2eleven(x){
+    "use strict";
+    if(x=='j'){
+        return 11;
+    }
+    else if(x=='q'){
+        return 12;
+    }
+    else if(x=='k'){
+        return 13
+    }
+    else if(x=='a'){
+        return 1;
+    }
+    else{
+        return x;
+    }
+
+}
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }
 
 document.addEventListener('DOMContentLoaded', main);

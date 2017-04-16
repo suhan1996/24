@@ -207,6 +207,7 @@ function game(){
 
 }
 
+//3_3_12_12_
 function strSorted(st){
     "use strict";
     let comboList = [],st_result="";
@@ -214,9 +215,10 @@ function strSorted(st){
     //for(let i = 0;i<st.length;i++){
     //    comboList.push(st[i])
     //}
-    comboList.sort().reverse().forEach(x =>{st_result+=x+"_"});
-    return st_result;
+   // comboList.sort().reverse().forEach(x =>{st_result+=x+"_"});
+    comboList.sort().forEach(x =>{st_result+=x+"_"});
 
+    return st_result;
 }
 
 function ifArraysEqual(a,b){

@@ -1,6 +1,24 @@
 /**
  * Created by Suhan on 08/04/2017.
  */
+// in html
+// <div id="card">
+//    <button v-on:click="show = !show">
+//    Start
+//    </button>
+//    <transition name="fade">
+//    <p v-if="show">hello</p>
+//    </transition>
+//    </div>
+new Vue({
+  el: '#demo',
+  data: {
+    show: true
+  }
+})
+
+
+
 Vue.component('demo-grid', {
   template: '#grid-template',
   replace: true,
@@ -56,7 +74,7 @@ Vue.component('demo-grid', {
 })
 
 // bootstrap the demo
-var demo = new Vue({
+var score = new Vue({
   el: '#demo',
   data: {
     searchQuery: '',

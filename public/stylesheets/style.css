@@ -6,6 +6,12 @@ body {
   width: 50%;
   /*border: 3px solid gainsboro;*/
 }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
 .start{
   font-size: large;
   margin-top: 30%;
@@ -42,15 +48,18 @@ form{
 
 }
 
-
+.button:hover{
+  background-color: #bbbbbb;
+}
 .button {
+  font-size: 20%;
   margin: auto;
   border: none;
   align-items: center;
   align-content: center;
   color:wheat;
   border-radius: 2px;
-  margin-left: 25%;
+  margin-left: 5%;
   padding: 10px 24px;
   font-size: 16px;
   background-color: rgba(0,0,0,0.5);
@@ -78,9 +87,19 @@ form{
   width: 50%;
   height: 50%;
 }
+.card:hover{
+  height: 24%;
+  width: 24%;
+  padding: 0%;
+
+  align-content: flex-start;
+  color: #00B7FF;
+
+}
 .card{
-  height: 25%;
-  width: 25%;
+  padding: 1%;
+  height: 23%;
+  width: 23%;
   align-content: flex-start;
 }
 #cpu_div object{ width:25%;display: inline-block}

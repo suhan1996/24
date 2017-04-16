@@ -12,6 +12,7 @@ const Comment = new mongoose.Schema({
 const Result = new mongoose.Schema({
     username: String,
     time: Number,
+    solve:Number,
     round_time : Number,
 });
 
@@ -19,6 +20,7 @@ const Combination = new mongoose.Schema({
     combination: String,
     solution: String,
     times: Number,
+    solve:Number,
 });
 
 //URLSlugs('<user>');

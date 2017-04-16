@@ -83,6 +83,43 @@ app.get('/:var1',function(req, res){
         res.render('calculator', {combo: combo, solution:solution, result:result});
     });
 });
+
+app.post('/game/round',function(req,res){
+    "use strict";
+    let _str = req.body.roundCombo;
+    Combination.findOne({combination:_str},function(err,result){
+        if(result){
+            if(result.times == undefined){
+                result.solve = 1;
+            }
+            else {
+                result.solve += 1;
+            }
+            result.save(function(saveErr, savePizza) {
+                //console.log(savePizza);
+            });
+            console.log(" soled again"+result.slug);
+
+        }else{
+            // new combo
+            let newlist = req.body.roundCombo.split("_");
+            newlist.pop();
+            let temp_result =  _test.CalculateStr(newlist);
+            console.log("new adding in game round",newlist);
+            const combi = new Combination({
+                combination: req.body.roundCombo,
+                solution: temp_result,
+                solve: 1,
+                slug:req.body.roundCombo
+            });
+            req.session.combo = req.body.roundCombo;
+            req.session.solution = temp_result;
+            combi.save((err) => {
+            });
+            console.log("new combi",combi);
+        }
+    })
+})
 app.post('/calculator/post', function(req, res) {
     //console.log("test1");
     //myName = req.body.myName;
@@ -111,7 +148,8 @@ app.post('/calculator/post', function(req, res) {
         console.log("new adding",req.body.asking.split(" "),temp_result);
         const combi = new Combination({
             combination: str_asking,
-            solution: temp_result
+            solution: temp_result,
+            times:1
         });
         req.session.combo = req.body.asking;
         req.session.solution = temp_result;
