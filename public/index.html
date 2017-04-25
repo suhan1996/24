@@ -2,12 +2,36 @@
 <html>
 <head>
     <title>Cards!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
     <meta charset="utf-8" />
 </head>
-<body>
-<h1 id="calculator"><a href="/calculator">calculator</a> </h1>
+
+<body onload="initialize()">
+
+<h1 id="head">24 Game</h1>
+<h2></h2>
+<label id="minutes">00</label>:<label id="seconds">00</label>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : 'your-app-id',
+            xfbml      : true,
+            version    : 'v2.9'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA16agRHFvWzCNLLIQjvL64wqPyLj6Kmrk&sensor=false"></script>
 <script src="javascripts/main.js"></script>
 
 
@@ -18,10 +42,12 @@
         <!--<label><input class="choice" name="test1" type="radio" value="0">One Minute Limit </label>-->
         <!--<lable><input class="choice" name="test3" type="radio" value="0">5 Combos Challenge</lable>-->
         <select class="choice" name="cars" multiple>
-            <option value="1">One Minute Limit </option>
-            <option value="5">5 Combos Challenge</option>
+            <!--<option value="1" class="option playBtn">One Minute Limit </option>-->
+            <!--<option class="option playBtn">5 Combos Challenge</option>-->
+            <option id="calculator" class="option calculator"><a href="/calculator">calculator</a> </option>
+            <option value="5" class="option playBtn">5 Combos Challenge</option>
         </select>
-        <input class="playBtn" type="submit" value="Play">
+        <!--<input class="playBtn" type="submit" value="Play">-->
     </form>
 
 </div>

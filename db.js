@@ -9,18 +9,23 @@ const Comment = new mongoose.Schema({
     text: String,
     user: String
 });
+
+//const Score = new mongoose.Schema({
+//    username: String,
+//    time: Number
+//});
 const Result = new mongoose.Schema({
     username: String,
-    time: Number,
+    time: String,
     solve:Number,
-    round_time : Number,
+    city : String
 });
 
 const Combination = new mongoose.Schema({
     combination: String,
     solution: String,
     times: Number,
-    solve:Number,
+    solve:Number
 });
 
 //URLSlugs('<user>');

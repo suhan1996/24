@@ -6,12 +6,12 @@ body {
   width: 50%;
   /*border: 3px solid gainsboro;*/
 }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
+/*.fade-enter-active, .fade-leave-active {*/
+  /*transition: opacity .5s*/
+/*}*/
+/*.fade-enter, .fade-leave-active {*/
+  /*opacity: 0*/
+/*}*/
 .start{
   font-size: large;
   margin-top: 30%;
@@ -30,7 +30,7 @@ body {
 
 form{
   background-color: #bbbbbb;
-  padding: 50px;
+  /*padding: 50px;*/
 }
 .input{
   border: none;
@@ -39,17 +39,52 @@ form{
   font-size: large;
   background-color: rgba(255,255,255,0.5);
 }
-.playBtn {
-  border: none;
-  padding: 1.5vmin 4vmin;
-  color: wheat;
-  font-size: large;
-  background-color: rgba(255,255,255,0.5);
+/*.playBtn {*/
+  /*border: none;*/
+  /*padding: 1.5vmin 4vmin;*/
+  /*color: wheat;*/
+  /*margin-left: 15%;*/
+  /*margin-top: 10%;*/
+  /*font-size: large;*/
+  /*background-color: rgba(255, 255, 255, 0.5);*/
+
+/*}*/
+.option::selection{
+  background-color:rgba(255, 255, 255, 0.5); ;
 
 }
+.option:hover{
+  background-color:rgba(255, 255, 255, 0.8); ;
+}
+.option{
+  border: none;
 
+  padding: 5%;
+  margin-top: 10%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  font-size: 200%;
+}
+.choice{
+  margin-top: 2%;
+  margin-left: 18%;
+  padding: 1.5vmin 4vmin;
+  border: none;
+  width: 60%;
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+}
 .button:hover{
   background-color: #bbbbbb;
+}
+
+#player_div{
+  background-color: #bbbbbb;
+  padding: 5%;
+  width: 8%;
+  border-radius: 5%;
+  font-size: 200%;
+
 }
 .button {
   font-size: 20%;
