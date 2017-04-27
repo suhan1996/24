@@ -17,7 +17,7 @@ const Comment = new mongoose.Schema({
 const Result = new mongoose.Schema({
     username: String,
     time: String,
-    solve:Number,
+   // solve:Number,
     city : String
 });
 

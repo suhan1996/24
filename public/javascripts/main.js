@@ -9,14 +9,24 @@ function main(){
     let selector = 1;
     let suit = ['clubs','diamonds','hearts','spades'];
     const calculator = document.querySelector('.calculator');
+    const hardCombos = document.querySelector('.hardCombos');
     const start = document.querySelectorAll('.playBtn');
     const form = document.querySelector('.start');
     calculator.onclick = function(){
+        document.querySelector('.intro').innerHTML="";
+
         location.href ='/calculator';
+    }
+    hardCombos.onclick = function(){
+        document.querySelector('.intro').innerHTML="";
+
+        location.href = '/HardCombos';
     }
     for(let i=0;i<1;i++){
         console.log(i);
+
     start[i].addEventListener('click',function(evt) {
+        document.querySelector('.intro').innerHTML="";
 
         Timer();
 
@@ -849,13 +859,12 @@ function add_png(round_list,cpu_div,suit,link,selector,player_div,player_div2,co
         if((result==24&&counter_click==4)||AoperateB(parseInt(player_div.innerHTML),parseInt(player_div2.innerHTML))){
             if(counter_round == 5){
                 if(counter_correct==5){
-                    window.location.href = '/result';
                     alert('congrats!');
                     let req= new XMLHttpRequest();
                     req.open('POST', '/result/post', true);
                     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
                     req.send("time="+document.getElementById("minutes").innerHTML+":"+document.getElementById("seconds").innerHTML+"&city="+city);
-
+                    window.location.href = '/result';
                 }
                 else{
                     location.href = '/result';

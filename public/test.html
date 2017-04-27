@@ -7,8 +7,81 @@
 <body>
 
 <!--<object id="svg1" data="images/SVG-cards-1.3/2_of_clubs.svg" type="image/svg+xml"></object>-->
+<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/tween.js@16.3.4"></script>
 
+<div id="sudoku-demo" class="demo">
+    <h1>Lazy Sudoku</h1>
+    <p>Keep hitting the shuffle button until you win.</p>
+
+    <button @click="shuffle">
+        Shuffle
+    </button>
+    <transition-group name="cell" tag="div" class="container">
+        <div v-for="cell in cells" :key="cell.id" class="cell">
+            {{ cell.number }}
+        </div>
+    </transition-group>
+</div>
+
+<div id="animated-number-demo">
+    <input v-model.number="number" type="number" step="20">
+    <p>{{ animatedNumber }}</p>
+</div>
+<script>// 这种复杂的补间动画逻辑可以被复用
+// 任何整数都可以执行动画
+// 组件化使我们的界面十分清晰
+// 可以支持更多更复杂的动态过渡
+// strategies.
+function main(){
+    new Vue({
+        el: '#sudoku-demo',
+        data: {
+            cells: Array.apply(null, { length: 4 })
+                    .map(function (_, index) {
+                        return {
+                            id: index,
+                            number: index % 9 + 1
+                        }
+                    })
+        },
+        methods: {
+            shuffle: function () {
+                this.cells = _.shuffle(this.cells)
+            }
+        }
+    })
+    new Vue({
+        el: '#animated-number-demo',
+        data: {
+            number: 0,
+            animatedNumber: 0
+        },
+        watch: {
+            number: function(newValue, oldValue) {
+                var vm = this
+                function animate (time) {
+                    requestAnimationFrame(animate)
+                    TWEEN.update(time)
+                }
+                new TWEEN.Tween({ tweeningNumber: oldValue })
+                        .easing(TWEEN.Easing.Quadratic.Out)
+                        .to({ tweeningNumber: newValue }, 500)
+                        .onUpdate(function () {
+                            vm.animatedNumber = this.tweeningNumber.toFixed(0)
+                        })
+                        .start()
+                animate()
+            }
+        }
+    })
+
+}
+document.addEventListener('DOMContentLoaded', main);
+</script>
 <blockquote id="quote">
     No book can ever be finished. While working on it we learn
     just enough to find it immature the moment we turn away

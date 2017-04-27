@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.js"></script>-->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/tween.js@16.3.4"></script>
+<script src="/javascripts/p5.min.js"></script>
+<script src="/javascripts/sketch.js"></script>
+<div id="elideCombos" class="demo">
+    <h1>Elite Combos</h1>
+    <p>Really hard, but try what's in your mind with the realtime input.</p>
+    <p>Using Vue.js and p5.js</p>
+
+    <div class="inline">
+    <transition-group name="cell" tag="div" class="container">
+        <div v-for="cell in cells" :key="cell.id" class="cell">
+            {{ cell.number }}
+        </div>
+    </transition-group>
+    <div id = "shuffle">
+        <button  class="next" @click="shuffle">
+            Next
+        </button>
+        <a href="/calculator"><button  id="cal" class="next">
+        Calculator
+    </button></a>
+    </div>
+</div>
+</div>
+<div id="animated-number-demo">
+    <input class="ipt" id="expression" v-model.string="number" >
+    <p class="ipt">{{ animatedNumber }}</p>
+</div>
+<script>
+
+function main(){
+    let combos = [[3,3,7,7],[1,5,5,5],[3,4,6,10],[1,2,7,7],[1,5,11,11],[1,4,5,6],[7,8,8,10],[3,3,8,8],[5,5,5,5],[6,6,3,11]];
+    let btn = document.querySelector('h1'),cal = document.querySelector('#cal');
+    let cells = document.querySelectorAll('.cell');
+    let combos_index = 0;
+
+    cal.addEventListener('click',function(evt){
+        //alert('hi');
+//        console.log("hi");
+//
+//        location.href='/calculator';
+    })
+    btn.addEventListener('click', function (evt) {
+        console.log("click");
+    });
+    function rdm() {
+        return   Math.floor(Math.random() * 9);
+    }
+    new Vue({
+        el: '#elideCombos',
+        data: {
+            cells: Array.apply(null, { length: 4 }).map(function (_, index) {
+                        return {
+                            id: index,
+                            number: combos[combos_index][index]
+                            //number: index % 9 + 1
+                        }
+                    })
+        },
+        methods: {
+            shuffle: function () {
+                console.log("shuffle",this.cells)
+                combos_index = Math.floor(Math.random() * 4);
+
+                this.cells = Array.apply(null, { length: 4 }).map(
+                        function (_, index) {return {
+                                id: index,
+                                number: combos[combos_index][index]
+                                //number: index % 9 + 1
+                            }
+                        })
+                this.cells = _.shuffle(this.cells)
+            }
+        }
+    })
+
+
+
+    let a = "";
+    a = document.querySelector("#expression").value;
+    new Vue({
+        el: '#animated-number-demo',
+        data: {
+            number: 0,
+            animatedNumber: 0
+        },
+        watch: {
+            number: function(newValue, oldValue) {
+                var vm = this
+                function animate (time) {
+                    requestAnimationFrame(animate)
+                    TWEEN.update(time)
+                }
+                new TWEEN.Tween({ tweeningNumber: oldValue })
+                        .easing(TWEEN.Easing.Quadratic.Out)
+                        .to({ tweeningNumber: newValue }, 500)
+                        .onUpdate(function () {
+                            a = document.querySelector("#expression").value;
+                            vm.animatedNumber = eval(a)//this.tweeningNumber.toFixed(0)
+                        })
+                        .start()
+                animate()
+            }
+        }
+    })
+
+}
+document.addEventListener('DOMContentLoaded', main);
+</script>
+</body>
+</html>

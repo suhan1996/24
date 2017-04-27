@@ -10,30 +10,38 @@
 
 <body onload="initialize()">
 
-<h1 id="head">24 Game</h1>
-<h2></h2>
-<label id="minutes">00</label>:<label id="seconds">00</label>
-<script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : 'your-app-id',
-            xfbml      : true,
-            version    : 'v2.9'
-        });
-        FB.AppEvents.logPageView();
-    };
+<h1 id="head">24 Points</h1>
+<div class="intro"><p>Using Google Map, Ajax Vue.js and p5.js.</p>
+<p>Hard Combos is using Vue.js, but has no database.</p>
+<p>5 Combos Challenge is the game, all original code, of which every round the game will send an ajax(adding one time of solved, you can check later by using calculator to search the same combo you solved during the game ), and if you finish 5 rounds, your total time your current city will be stored in the database. </p>
+<p>Calculator is to calculate how to make 24 with 4 random number you want, involving submitting form, it will get the solution and other information on the combo you searched.</p>
+</div>
 
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
+
+<label id="minutes">00</label>:<label id="seconds">00</label>
+<!--<script>-->
+    <!--window.fbAsyncInit = function() {-->
+        <!--FB.init({-->
+            <!--appId      : 'your-app-id',-->
+            <!--xfbml      : true,-->
+            <!--version    : 'v2.9'-->
+        <!--});-->
+        <!--FB.AppEvents.logPageView();-->
+    <!--};-->
+
+    <!--(function(d, s, id){-->
+        <!--var js, fjs = d.getElementsByTagName(s)[0];-->
+        <!--if (d.getElementById(id)) {return;}-->
+        <!--js = d.createElement(s); js.id = id;-->
+        <!--js.src = "//connect.facebook.net/en_US/sdk.js";-->
+        <!--fjs.parentNode.insertBefore(js, fjs);-->
+    <!--}(document, 'script', 'facebook-jssdk'));-->
+<!--</script>-->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA16agRHFvWzCNLLIQjvL64wqPyLj6Kmrk&sensor=false"></script>
 <script src="javascripts/main.js"></script>
-
+<script src="/javascripts/p5.min.js"></script>
+<script src="/javascripts/main_bg.js"></script>
 
 <div  class="start center" >
 
@@ -44,8 +52,10 @@
         <select class="choice" name="cars" multiple>
             <!--<option value="1" class="option playBtn">One Minute Limit </option>-->
             <!--<option class="option playBtn">5 Combos Challenge</option>-->
-            <option id="calculator" class="option calculator"><a href="/calculator">calculator</a> </option>
+            <option id="hardCombos" class="option hardCombos"><a href="/HardCombos">Hard Combos</a> </option>
             <option value="5" class="option playBtn">5 Combos Challenge</option>
+            <option id="calculator" class="option calculator"><a href="/calculator">Calculator</a> </option>
+
         </select>
         <!--<input class="playBtn" type="submit" value="Play">-->
     </form>

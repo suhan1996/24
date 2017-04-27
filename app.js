@@ -40,25 +40,33 @@ const Combination = mongoose.model('Combination');
 
 
 app.get('/calculator', (req, res) => {
+    app.set('view engine', 'hbs');
     "use strict";
-    Combination.findOne({combination: "1234"}, function(err, result) {if(result){
-        // already exist
-        console.log("yes")
+    Combination.findOne({combination: "1234"}, function (err, result) {
+        if (result) {
+            // already exist
+            console.log("yes")
 
-    }
-    res.render('calculator');
+        }
+        res.render('calculator');
 
-    //let str_asking = strSorted(req.body.asking);
-    //Combination.findOne({combination: str_asking}, function(err, result) {if(result){
-    //    // already exist
-    //
-    //}
+        //let str_asking = strSorted(req.body.asking);
+        //Combination.findOne({combination: str_asking}, function(err, result) {if(result){
+        //    // already exist
+        //
+        //}
 //
 //});
+    });
 });
 
+app.get('/HardCombos',(req,res)=>{
+    app.set('view engine', 'html');
+    res.sendFile(path.join(__dirname+'/public/HardCombos.html'));
+});
 app.get('/calculator/result', (req, res) => {
     "use strict";
+    app.set('view engine', 'hbs');
     res.render('calculator',{'result':result});
 
     let str_asking = _test.strSorted(req.body.asking);
@@ -69,9 +77,10 @@ app.get('/calculator/result', (req, res) => {
     });
 
     });
-});
+
 
 app.get('/calculator/result/:var1',function(req, res){
+    app.set('view engine', 'hbs');
     "use strict";
     let slg = req.params.var1;
     //console.log(req.params.var1);
@@ -80,7 +89,7 @@ app.get('/calculator/result/:var1',function(req, res){
     Combination.findOne({combination: slg}, function(err, result){
         console.log("the result combo",result)
 
-        res.render('calculator', {combo: combo, solution:solution, result:result});
+        res.render('calculator2', {combo: combo, solution:solution, result:result});
     });
 });
 
@@ -169,6 +178,7 @@ app.post('/calculator/post', function(req, res) {
 });
 
 app.get('/result',(req,res)=>{
+    app.set('view engine', 'hbs');
     "use strict";
     Result.find({}, function(err, result){
         console.log("Players Result",result);
@@ -177,18 +187,21 @@ app.get('/result',(req,res)=>{
 
 })
 app.post('/result/post',(req,res)=>{
+    //app.set('view engine', 'hbs');
     "use strict";
-    const result = new Result({
-        username: "Random Player",
+    console.log(req.body.time,req.body.city);
+
+    (new Result({
+        username: ["Jack Rando","Rand Omer","Som One"][Math.floor(Math.random() * 3)],
         time: req.body.time,
         city:req.body.city
         //round_time : {}
-    });
-    result.save((err) => {
+    })).save((err) => {
         if(err) {
             console.log(err);
         }
         else{
+        //    alert("2");
             res.redirect('/result');
         }
     });
@@ -196,6 +209,8 @@ app.post('/result/post',(req,res)=>{
 })
 
 app.get('/test', (req, res) => {
+    app.set('view engine', 'hbs');
+
     let combo = [];
     for (let i=0; i<10; i++){
         let rst_temp = _test.game();
